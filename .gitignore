@@ -1,0 +1,16 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Test, private, and scratch directories (per user rules)
+tests/
+private/
+scripts/
+tree_list.txt
+
+# OS and editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

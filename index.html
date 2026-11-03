@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRMake — Contact and text QR code generator</title>
+  <meta name="description" content="Create scannable QR codes from contact details (vCard 3.0) or any text and URL directly in your browser.">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/qrcodegen.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-group">
+        <div class="brand-logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+            <path d="M14 14h3v3h-3z"></path>
+            <path d="M18 18h3v3h-3z"></path>
+            <path d="M14 19h2"></path>
+            <path d="M19 14v2"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="type-headline-medium">QRMake</h1>
+          <p class="type-body-small">Client-side contact and text QR code generator</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" id="btn-load-sample" class="btn btn-tonal">
+          Load sample contact
+        </button>
+        <button type="button" id="btn-clear-form" class="btn btn-outlined">
+          Clear fields
+        </button>
+        <button type="button" id="btn-theme-toggle" class="btn btn-outlined btn-icon-only" aria-label="Switch color theme" title="Switch color theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="app-main">
+    <!-- Left Pane: Input & Formatting -->
+    <section class="card" aria-labelledby="input-heading">
+      <div class="card-header">
+        <h2 id="input-heading" class="type-title-large">Enter your content</h2>
+        <span class="type-body-small">Processed locally in your browser</span>
+      </div>
+
+      <!-- Mode Switcher Tabs -->
+      <div class="mode-tabs" role="tablist" aria-label="QR content mode">
+        <button type="button" id="tab-contact" class="mode-tab is-active" role="tab" aria-selected="true" aria-controls="panel-contact">
+          Contact details (vCard)
+        </button>
+        <button type="button" id="tab-text" class="mode-tab" role="tab" aria-selected="false" aria-controls="panel-text">
+          Text or URL
+        </button>
+      </div>
+
+      <!-- Panel 1: Contact Details (vCard 3.0) -->
+      <div id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
+        <h3 class="type-title-medium form-section-title">Identity and organization</h3>
+        <div class="form-grid form-grid-2">
+          <div class="field-group">
+            <label for="contact-first-name" class="type-label-medium field-label">First name</label>
+            <input type="text" id="contact-first-name" class="field-input" placeholder="For example, Maua" autocomplete="given-name">
+          </div>
+          <div class="field-group">
+            <label for="contact-last-name" class="type-label-medium field-label">Last name</label>
+            <input type="text" id="contact-last-name" class="field-input" placeholder="For example, Mazuri" autocomplete="family-name">
+          </div>
+          <div class="field-group">
+            <label for="contact-organization" class="type-label-medium field-label">Organization</label>
+            <input type="text" id="contact-organization" class="field-input" placeholder="Company or institution name" autocomplete="organization">
+          </div>
+          <div class="field-group">
+            <label for="contact-title" class="type-label-medium field-label">Job title</label>
+            <input type="text" id="contact-title" class="field-input" placeholder="Optional role or department" autocomplete="organization-title">
+          </div>
+        </div>
+
+        <h3 class="type-title-medium form-section-title">Phone, email, and web</h3>
+        <div class="form-grid form-grid-2">
+          <div class="field-group">
+            <label for="contact-work-phone" class="type-label-medium field-label">Work phone</label>
+            <input type="tel" id="contact-work-phone" class="field-input tabular-nums" placeholder="+254 700 438 954" autocomplete="tel">
+          </div>
+          <div class="field-group">
+            <label for="contact-cell-phone" class="type-label-medium field-label">Mobile phone</label>
+            <input type="tel" id="contact-cell-phone" class="field-input tabular-nums" placeholder="+255752102645" autocomplete="tel">
+          </div>
+          <div class="field-group">
+            <label for="contact-email" class="type-label-medium field-label">Email address</label>
+            <input type="email" id="contact-email" class="field-input" placeholder="name@example.com" autocomplete="email">
+          </div>
+          <div class="field-group">
+            <label for="contact-website" class="type-label-medium field-label">Website URL</label>
+            <input type="url" id="contact-website" class="field-input" placeholder="https://example.com" autocomplete="url">
+          </div>
+        </div>
+
+        <h3 class="type-title-medium form-section-title">Location and address</h3>
+        <div class="form-grid form-grid-2">
+          <div class="field-group">
+            <label for="contact-street" class="type-label-medium field-label">Street address</label>
+            <input type="text" id="contact-street" class="field-input" placeholder="Optional building or street" autocomplete="street-address">
+          </div>
+          <div class="field-group">
+            <label for="contact-city" class="type-label-medium field-label">City or town</label>
+            <input type="text" id="contact-city" class="field-input" placeholder="For example, Taveta" autocomplete="address-level2">
+          </div>
+        </div>
+        <div class="form-grid form-grid-3" style="margin-top: var(--space-4);">
+          <div class="field-group">
+            <label for="contact-region" class="type-label-medium field-label">State or region</label>
+            <input type="text" id="contact-region" class="field-input" placeholder="Optional region" autocomplete="address-level1">
+          </div>
+          <div class="field-group">
+            <label for="contact-postal" class="type-label-medium field-label">Postal code</label>
+            <input type="text" id="contact-postal" class="field-input tabular-nums" placeholder="Optional code" autocomplete="postal-code">
+          </div>
+          <div class="field-group">
+            <label for="contact-country" class="type-label-medium field-label">Country</label>
+            <input type="text" id="contact-country" class="field-input" placeholder="For example, Kenya" autocomplete="country-name">
+          </div>
+        </div>
+
+        <!-- Collapsible vCard 3.0 Raw Payload Preview -->
+        <details class="vcard-details">
+          <summary class="vcard-summary type-label-large">
+            <span>View formatted vCard 3.0 text</span>
+            <span class="type-body-small">Standard camera format</span>
+          </summary>
+          <div class="vcard-details-body">
+            <label for="vcard-raw-preview" class="type-body-small">
+              Phone cameras read this vCard 3.0 structure to create a new contact automatically
+            </label>
+            <textarea id="vcard-raw-preview" class="field-textarea mono-textarea" readonly></textarea>
+          </div>
+        </details>
+      </div>
+
+      <!-- Panel 2: Freeform Text or URL -->
+      <div id="panel-text" role="tabpanel" aria-labelledby="tab-text" hidden>
+        <div class="field-group">
+          <label for="freeform-text" class="type-label-medium field-label">
+            Text, website link, or raw contact card
+          </label>
+          <textarea id="freeform-text" class="field-textarea" placeholder="Paste any text, website URL, Wi-Fi string, or BEGIN:VCARD block"></textarea>
+        </div>
+        <div style="margin-top: var(--space-3); display: flex; justify-content: flex-end;">
+          <button type="button" id="btn-import-vcard" class="btn btn-tonal" hidden>
+            Import vCard into contact fields
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Pane: Sticky QR Preview & Export -->
+    <aside class="card preview-pane" aria-labelledby="preview-heading">
+      <div class="card-header">
+        <h2 id="preview-heading" class="type-title-large">Your QR code</h2>
+        <span class="type-body-small">Scan with any phone camera</span>
+      </div>
+
+      <!-- Olive-Framed QR Stage (Matching Sample Card Aesthetic) -->
+      <div class="qr-stage">
+        <canvas id="qr-canvas" class="qr-canvas" width="512" height="512" aria-label="Generated QR code preview"></canvas>
+        <div id="qr-empty-state" class="qr-empty-state" hidden>
+          <p class="type-title-medium" style="margin-bottom: var(--space-1);">No content entered yet</p>
+          <p class="type-body-small" style="color: rgba(255, 255, 255, 0.85);">
+            Fill in your contact details or select Load sample contact to generate a QR code
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Metadata Pills -->
+      <div class="meta-badges" aria-live="polite">
+        <span id="meta-version" class="meta-badge tabular-nums">Version 11 · 61×61</span>
+        <span id="meta-ecc" class="meta-badge tabular-nums">Level M · 15%</span>
+        <span id="meta-bytes" class="meta-badge tabular-nums">251 bytes</span>
+      </div>
+
+      <!-- Warnings & Validation Banners -->
+      <div id="qr-contrast-warning" class="alert-banner" role="status" hidden>
+        Low contrast or inverted colors may prevent some phone cameras from scanning this code
+      </div>
+      <div id="qr-error-banner" class="alert-banner" role="alert" hidden></div>
+
+      <!-- QR Code Customization Controls -->
+      <div class="form-grid form-grid-3">
+        <div class="field-group">
+          <label for="qr-ecc" class="type-label-medium field-label">Error correction</label>
+          <select id="qr-ecc" class="field-select">
+            <option value="LOW">Low (7%)</option>
+            <option value="MEDIUM" selected>Medium (15%)</option>
+            <option value="QUARTILE">Quartile (25%)</option>
+            <option value="HIGH">High (30%)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="qr-margin" class="type-label-medium field-label">Quiet zone</label>
+          <select id="qr-margin" class="field-select tabular-nums">
+            <option value="1">1 module</option>
+            <option value="2" selected>2 modules</option>
+            <option value="4">4 modules</option>
+            <option value="6">6 modules</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="qr-size" class="type-label-medium field-label">Export size</label>
+          <select id="qr-size" class="field-select tabular-nums">
+            <option value="256">256 × 256 px</option>
+            <option value="512" selected>512 × 512 px</option>
+            <option value="768">768 × 768 px</option>
+            <option value="1024">1,024 × 1,024 px</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Foreground & Background Colors -->
+      <div class="color-picker-row">
+        <div class="field-group">
+          <label for="qr-fg-color" class="type-label-medium field-label">Foreground</label>
+          <div class="color-input-wrapper">
+            <input type="color" id="qr-fg-color" class="color-swatch-input" value="#000000">
+            <span class="type-body-small tabular-nums">Modules</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="qr-bg-color" class="type-label-medium field-label">Background</label>
+          <div class="color-input-wrapper">
+            <input type="color" id="qr-bg-color" class="color-swatch-input" value="#FFFFFF">
+            <span class="type-body-small tabular-nums">Surface</span>
+          </div>
+        </div>
+        <button type="button" id="btn-reset-colors" class="btn btn-outlined btn-icon-only" aria-label="Reset colors to black and white" title="Reset colors to black and white">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Export & Copy Buttons -->
+      <div class="export-actions-grid">
+        <button type="button" id="btn-download-png" class="btn btn-primary">
+          Download PNG
+        </button>
+        <button type="button" id="btn-download-svg" class="btn btn-primary">
+          Download SVG
+        </button>
+        <button type="button" id="btn-copy-image" class="btn btn-tonal">
+          Copy image
+        </button>
+        <button type="button" id="btn-copy-text" class="btn btn-tonal">
+          Copy encoded text
+        </button>
+        <button type="button" id="btn-download-vcf" class="btn btn-outlined btn-full">
+          Download vCard (.vcf)
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p class="type-body-small">
+      QRMake runs entirely in your browser with zero tracking or external requests
+    </p>
+    <p class="type-body-small">
+      Open source under the <a href="LICENSE">MIT License</a> · <a href="https://github.com/ismailisimba/qrmake" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </p>
+  </footer>
+
+  <!-- Accessible Snackbar Notification -->
+  <div id="snackbar" class="snackbar" role="status" aria-live="polite"></div>
+</body>
+</html>

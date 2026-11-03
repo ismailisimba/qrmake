@@ -1,0 +1,662 @@
+/* ==========================================================================
+   QRMake — Material Design 3 & Accessible UI Stylesheet
+   - 8px spacing rhythm (with 4px micro-steps for inner label gaps)
+   - Minimum 48x48px interactive touch targets across all controls
+   - 5 semantic typography roles with 1.2x / 1.5x line heights & tabular-nums
+   - HCT tonal surface and on-surface color pairings (Light & Dark themes)
+   ========================================================================== */
+
+:root {
+  /* 8px Spacing System */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Typography Families */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace;
+
+  /* Light Theme Semantic Color Roles (M3 HCT Botanical Olive-Emerald Palette) */
+  --surface: #F7F9F5;
+  --surface-container-low: #F1F4EE;
+  --surface-container: #EAEFE6;
+  --surface-container-high: #E2E8DD;
+  --surface-card: #FFFFFF;
+  --on-surface: #171D17;
+  --on-surface-variant: #414940;
+
+  --primary: #25582E;
+  --primary-hover: #1C4623;
+  --on-primary: #FFFFFF;
+  --primary-container: #B9F0BD;
+  --on-primary-container: #002107;
+
+  --secondary-container: #D6E7D3;
+  --on-secondary-container: #111F12;
+
+  --outline: #71796F;
+  --outline-variant: #C1C9BE;
+
+  --error: #BA1A1A;
+  --on-error: #FFFFFF;
+  --error-container: #FFDAD6;
+  --on-error-container: #410002;
+
+  --qr-frame-bg: #4B5B31; /* Olive frame matching the reference sample QR card */
+  --shadow-card: 0 2px 8px rgba(23, 29, 23, 0.06), 0 1px 2px rgba(23, 29, 23, 0.04);
+}
+
+[data-theme="dark"] {
+  --surface: #101510;
+  --surface-container-low: #171D17;
+  --surface-container: #1C221C;
+  --surface-container-high: #262D26;
+  --surface-card: #181E18;
+  --on-surface: #E1E4DE;
+  --on-surface-variant: #C1C9BE;
+
+  --primary: #8FD49A;
+  --primary-hover: #A6E5AF;
+  --on-primary: #003912;
+  --primary-container: #164E23;
+  --on-primary-container: #B9F0BD;
+
+  --secondary-container: #394A38;
+  --on-secondary-container: #D6E7D3;
+
+  --outline: #8B9388;
+  --outline-variant: #414940;
+
+  --error: #FFB4AB;
+  --on-error: #690005;
+  --error-container: #93000A;
+  --on-error-container: #FFDAD6;
+
+  --qr-frame-bg: #3D4B28;
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.32);
+}
+
+/* Base Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--on-surface);
+  background-color: var(--surface);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   5 Semantic Typography Roles
+   ========================================================================== */
+
+.type-headline-medium {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.type-title-large {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.type-title-medium {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.type-body-medium {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.type-body-small {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.type-label-large {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.type-label-medium {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Underlined Accessible Hyperlinks */
+a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* ==========================================================================
+   Top App Bar
+   ========================================================================== */
+
+.app-header {
+  background-color: var(--surface-card);
+  border-bottom: 1px solid var(--outline-variant);
+  padding: var(--space-3) var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.app-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background-color: var(--qr-frame-bg);
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Main Split-Pane Layout (8dp Grid: 16px compact, 24px expanded)
+   ========================================================================== */
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 920px) {
+  .app-header {
+    padding: var(--space-3) var(--space-6);
+  }
+
+  .app-main {
+    padding: var(--space-6);
+    grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.9fr);
+    gap: var(--space-6);
+  }
+
+  .preview-pane {
+    position: sticky;
+    top: 88px;
+  }
+}
+
+/* ==========================================================================
+   Cards & Explicit Grouping Containers
+   ========================================================================== */
+
+.card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Mode Navigation Tabs (Minimum 48x48px Targets)
+   ========================================================================== */
+
+.mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  background-color: var(--surface-container);
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-6);
+}
+
+.mode-tab {
+  min-height: 48px;
+  min-width: 48px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--on-surface-variant);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mode-tab:hover {
+  color: var(--on-surface);
+}
+
+.mode-tab.is-active {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.mode-tab:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Form Layout & Controls (Minimum 48px Height)
+   ========================================================================== */
+
+.form-section-title {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+}
+
+.form-section-title:first-of-type {
+  margin-top: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 560px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field-label {
+  color: var(--on-surface);
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field-textarea {
+  min-height: 160px;
+  resize: vertical;
+  padding: var(--space-3);
+}
+
+.field-textarea.mono-textarea {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  min-height: 144px;
+}
+
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-container);
+}
+
+/* Collapsible Raw vCard Inspector */
+.vcard-details {
+  margin-top: var(--space-6);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  background-color: var(--surface-container-low);
+}
+
+.vcard-summary {
+  min-height: 48px;
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--on-surface);
+  list-style: none;
+}
+
+.vcard-summary::-webkit-details-marker {
+  display: none;
+}
+
+.vcard-details-body {
+  padding: 0 var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ==========================================================================
+   Buttons & Interactive Controls (Minimum 48x48px Hit Area)
+   ========================================================================== */
+
+.btn {
+  min-height: 48px;
+  min-width: 48px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  text-decoration: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-tonal {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.btn-tonal:hover:not(:disabled) {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.btn-outlined {
+  background-color: transparent;
+  border-color: var(--outline);
+  color: var(--on-surface);
+}
+
+.btn-outlined:hover:not(:disabled) {
+  background-color: var(--surface-container);
+}
+
+.btn-icon-only {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   QR Code Preview Stage & Metadata Badges
+   ========================================================================== */
+
+.qr-stage {
+  background-color: var(--qr-frame-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 288px;
+  margin-bottom: var(--space-4);
+}
+
+.qr-canvas {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  width: 248px;
+  height: 248px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.qr-empty-state {
+  color: #FFFFFF;
+  text-align: center;
+  padding: var(--space-6);
+  max-width: 260px;
+}
+
+.meta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.meta-badge {
+  background-color: var(--surface-container);
+  color: var(--on-surface);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.alert-banner {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+/* Color Picker Row */
+.color-picker-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-3);
+  align-items: end;
+  margin-top: var(--space-4);
+}
+
+.color-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+}
+
+.color-swatch-input {
+  width: 32px;
+  height: 32px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.export-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.export-actions-grid .btn-full {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================================================
+   Footer & Snackbar Notification
+   ========================================================================== */
+
+.app-footer {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  border-top: 1px solid var(--outline-variant);
+}
+
+.snackbar {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%) translateY(24px);
+  background-color: var(--on-surface);
+  color: var(--surface);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+}
+
+.snackbar.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
